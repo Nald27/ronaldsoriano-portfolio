@@ -295,6 +295,7 @@ export default function App() {
                   <span>Tailwind CSS</span>
                   <span>Bootstrap</span>
                   <span>WordPress</span>
+                  <span>React (Currently Learning)</span>
                 </div>
               </div>
 
