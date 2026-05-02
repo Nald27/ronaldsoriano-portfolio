@@ -105,6 +105,8 @@ Respond to the latest user message naturally.
 });
 
 // Run server
-app.listen(5000, () => {
-  console.log("Gemini AI server running on http://localhost:5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Gemini AI server running on port ${PORT}`);
 });

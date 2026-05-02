@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaAward } from "react-icons/fa";
+import { BsChatDots } from "react-icons/bs";
+import { IoSend } from "react-icons/io5";
 import "./App.css";
 
 const sessionId = localStorage.getItem("chatSession") || crypto.randomUUID();
@@ -14,7 +18,7 @@ export default function App() {
   const [chatMessages, setChatMessages] = useState([
     {
       from: "bot",
-      text: "Hi! I'm Ronald's portfolio assistant. Ask me about his skills, projects, resume, or contact info.",
+      text: "Hi! I'm Ronald's AI assistant. How can I help you today?",
     },
   ]);
 
@@ -540,12 +544,7 @@ export default function App() {
               <h3>Certification</h3>
 
               <div className="mini-box certification-box">
-                <span className="cert-icon">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.5H8V12zm0 3h8v1.5H8V15z" />
-                    <path d="M10 18l2-1.2 2 1.2v-3h-4v3z" />
-                  </svg>
-                </span>
+                <FaAward className="cert-icon" />
 
                 <div className="cert-content">
                   <strong>Civil Service Exam Passer</strong>
@@ -558,30 +557,18 @@ export default function App() {
               <h3>Social Links</h3>
 
               <div className="social-links-list">
-                <a
-                  className="social-link-item"
-                  href="https://www.linkedin.com/in/ronald-soriano-159b02347"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span className="social-link-text">LinkedIn</span>
-                </a>
-
-                <a
-                  className="social-link-item"
-                  href="https://github.com/Nald27"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href="https://github.com/Nald27" target="_blank" className="social-link-item">
+                  <FaGithub size={20} />
                   <span className="social-link-text">GitHub</span>
                 </a>
 
-                <a
-                  className="social-link-item"
-                  href="https://www.instagram.com/nald.dev/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href="https://www.linkedin.com/in/ronald-soriano-159b02347" target="_blank" className="social-link-item">
+                  <FaLinkedin size={20} />
+                  <span className="social-link-text">LinkedIn</span>
+                </a>
+
+                <a href="https://www.instagram.com/nald.dev/" target="_blank" className="social-link-item">
+                  <FaInstagram size={20} />
                   <span className="social-link-text">Instagram</span>
                 </a>
               </div>
@@ -704,19 +691,26 @@ export default function App() {
                 onChange={(event) => setChatInput(event.target.value)}
                 placeholder="Ask about Ronald..."
               />
-              <button type="submit">Send</button>
+
+              <button type="submit" className="send-btn">
+                <IoSend size={18} />
+              </button>
+              
             </form>
           </div>
         )}
 
-        <button
-          className="chatbot-toggle"
-          type="button"
-          aria-label="Open chatbot"
-          onClick={() => setChatOpen((prev) => !prev)}
-        >
-          💬
-        </button>
+      <button
+        className="chatbot-toggle"
+        onClick={() => setChatOpen((prev) => !prev)}
+      >
+        <span className={!chatOpen ? "swing-icon" : ""}>
+          <BsChatDots size={20} />
+        </span>
+
+        <span className="chat-text">Ask Ronald AI</span>
+      </button>
+
       </div>
 
       {modalImage && (
