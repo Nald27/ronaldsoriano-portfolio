@@ -148,6 +148,28 @@ export default function App() {
     setModalImage("");
   };
 
+  let touchStartX = 0;
+
+  const handleTouchStart = (e) => {
+    touchStartX = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX;
+
+    if (touchStartX - touchEndX > 50) {
+      // swipe left
+      setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
+    }
+
+    if (touchEndX - touchStartX > 50) {
+      // swipe right
+      setCurrentSlide((prev) =>
+        prev === 0 ? sliderImages.length - 1 : prev - 1
+      );
+    }
+  };
+
   return (
     <>
       <button
@@ -268,15 +290,17 @@ export default function App() {
                     <div className="project-header">
                       <h4>Automated Photobooth System — Yugobooth</h4>
 
-                      <button
-                        className="project-link project-link-button"
-                        type="button"
-                        onClick={() =>
-                          openImageModal("/assets/images/yugobooth.jpg")
-                        }
-                      >
-                        View Photo &gt;
-                      </button>
+                        {false && (
+                          <button
+                            className="project-link project-link-button"
+                            type="button"
+                            onClick={() =>
+                              openImageModal("/assets/images/yugobooth.jpg")
+                            }
+                          >
+                            View Photo &gt;
+                          </button>
+                        )}
                     </div>
 
                     <p>
@@ -604,18 +628,46 @@ export default function App() {
                 </span>
               </div>
 
-              <div className="slider">
-                {sliderImages.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    className={`slider-image ${
-                      index === currentSlide ? "active" : ""
-                    }`}
-                    alt={`Portfolio gallery ${index + 1}`}
-                  />
-                ))}
-              </div>
+                <div className="slider" onTouchStart={handleTouchStart} 
+                                        onTouchEnd={handleTouchEnd}
+                >
+
+                  {/* LEFT ARROW */}
+                  <button
+                    className="slider-btn left"
+                    onClick={() =>
+                      setCurrentSlide((prev) =>
+                        prev === 0 ? sliderImages.length - 1 : prev - 1
+                      )
+                    }
+                  >
+                    ‹
+                  </button>
+
+                  {/* IMAGES */}
+                  {sliderImages.map((img, index) => (
+                    <img
+                      key={index}
+                      src={img}
+                      className={`slider-image ${
+                        index === currentSlide ? "active" : ""
+                      }`}
+                      alt={`Portfolio gallery ${index + 1}`}
+                    />
+                  ))}
+
+                  {/* RIGHT ARROW */}
+                  <button
+                    className="slider-btn right"
+                    onClick={() =>
+                      setCurrentSlide((prev) =>
+                        (prev + 1) % sliderImages.length
+                      )
+                    }
+                  >
+                    ›
+                  </button>
+                </div>
             </article>
           </aside>
         </main>
