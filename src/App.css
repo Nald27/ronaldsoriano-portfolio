@@ -11,7 +11,7 @@
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
 }
 
-body.dark {
+html.dark {
   --bg: #050505;
   --panel: #0d0d0d;
   --panel-2: #141414;
@@ -115,8 +115,8 @@ button {
   border: 1px solid var(--line);
 }
 
-body.dark .hero-photo img,
-body.dark .slider-image {
+html.dark .hero-photo img,
+html.dark .slider-image {
   filter: grayscale(100%);
 }
 

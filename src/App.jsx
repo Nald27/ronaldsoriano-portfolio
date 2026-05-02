@@ -9,7 +9,10 @@ const sessionId = localStorage.getItem("chatSession") || crypto.randomUUID();
 localStorage.setItem("chatSession", sessionId);
 
 export default function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+  const savedTheme = localStorage.getItem("portfolio-theme");
+  return !savedTheme || savedTheme === "dark";
+});
   const [modalImage, setModalImage] = useState("");
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
@@ -38,16 +41,15 @@ export default function App() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("portfolio-theme");
-
-    if (savedTheme) {
-      setIsDark(savedTheme === "dark");
-    } else {
-      // DEFAULT = DARK MODE
-      setIsDark(true);
-    }
-  }, []);
+useEffect(() => {
+  if (isDark) {
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("portfolio-theme", "dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+    localStorage.setItem("portfolio-theme", "light");
+  }
+}, [isDark]);
 
   useEffect(() => {
   if (isDark) {
