@@ -41,10 +41,11 @@ export default function App() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("portfolio-theme");
 
-    if (savedTheme === "dark") {
-      setIsDark(true);
+    if (savedTheme) {
+      setIsDark(savedTheme === "dark");
     } else {
-      setIsDark(false);
+      // DEFAULT = DARK MODE
+      setIsDark(true);
     }
   }, []);
 
