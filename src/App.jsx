@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import { FaAward } from "react-icons/fa";
 import { BsChatDots } from "react-icons/bs";
 import { IoSend } from "react-icons/io5";
+import { FaFileAlt, FaEnvelope, FaCalendarAlt } from "react-icons/fa";
 import "./App.css";
 
 const sessionId = localStorage.getItem("chatSession") || crypto.randomUUID();
@@ -219,32 +220,35 @@ useEffect(() => {
               solutions that solve real-world workflow problems.
             </p>
 
-            <div className="hero-actions">
-              <a
-                className="btn btn-primary"
-                href="/assets/files/SORIANO_RONALD_RESUME - MAIN RESUME.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View Resume
-              </a>
+          <div className="hero-actions">
+            <a
+              className="btn btn-primary"
+              href="/assets/files/SORIANO_RONALD_RESUME - MAIN RESUME.pdf"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaFileAlt style={{ marginRight: "8px" }} />
+              View Resume
+            </a>
 
-              <a
-                className="btn btn-secondary"
-                href="mailto:ronaldsoriano2727@gmail.com"
-              >
-                Contact Me
-              </a>
+            <a
+              className="btn btn-secondary"
+              href="mailto:ronaldsoriano2727@gmail.com"
+            >
+              <FaEnvelope style={{ marginRight: "8px" }} />
+              Send Email
+            </a>
 
-              <a
-                className="btn btn-secondary"
-                href="https://github.com/Nald27"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-            </div>
+            <a
+              className="btn btn-secondary"
+              href="https://calendly.com/ronaldsoriano2727/15-minute-meeting"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaCalendarAlt style={{ marginRight: "8px" }} />
+              Schedule a Call
+            </a>
+          </div>
           </div>
         </header>
 
