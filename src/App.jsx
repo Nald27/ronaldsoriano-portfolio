@@ -11,13 +11,18 @@ localStorage.setItem("chatSession", sessionId);
 
 export default function App() {
   const [isDark, setIsDark] = useState(() => {
-  const savedTheme = localStorage.getItem("portfolio-theme");
-  return !savedTheme || savedTheme === "dark";
-});
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    return !savedTheme || savedTheme === "dark";
+  });
+
   const [modalImage, setModalImage] = useState("");
+  const [selectedProject, setSelectedProject] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const touchStartXRef = useRef(0);
+  const chatEndRef = useRef(null);
 
   const [chatMessages, setChatMessages] = useState([
     {
@@ -26,41 +31,185 @@ export default function App() {
     },
   ]);
 
-  const chatEndRef = useRef(null);
-
   const sliderImages = [
     "/assets/images/sliders/1.jpg",
     "/assets/images/sliders/2.jpg",
     "/assets/images/sliders/3.jpg",
     "/assets/images/sliders/4.jpg",
+    "/assets/images/sliders/5.jpg",
     "/assets/images/sliders/6.jpg",
     "/assets/images/sliders/7.jpg",
     "/assets/images/sliders/8.jpg",
+    "/assets/images/sliders/9.jpg",
+    "/assets/images/sliders/10.jpg",
+    "/assets/images/sliders/11.jpg",
+    "/assets/images/sliders/12.jpg",
+  ];
+
+  const projects = [
+    {
+      title: "Yugobooth: Automated Photobooth System",
+      category: "Full-Stack + Hardware Automation",
+      summary:
+        "A live production photobooth system that automates payment, photo capture, filtering, printing, and QR softcopy downloads.",
+      description:
+        "Yugobooth is a real-world automated photobooth system used in live business operations. It combines web development, backend logic, hardware integration, database management, payment automation, printing, and customer-facing workflows into one complete production system.",
+      highlights: [
+        "Integrated bill acceptor payment handling to reduce manual staff intervention.",
+        "Automated the customer flow from payment to layout selection, photo capture, filtering, printing, and QR download delivery.",
+        "Built an admin dashboard for revenue tracking, session monitoring, and real-time analytics.",
+        "Configured temporary public access for QR softcopy downloads using Ngrok and Cloudflare Tunnel.",
+        "Maintains and supports the live system through troubleshooting, testing, and user guidance.",
+      ],
+      tech: [
+        "PHP",
+        "JavaScript",
+        "MySQL",
+        "Python",
+        "Arduino",
+        "FFmpeg",
+        "Ngrok",
+        "Cloudflare Tunnel",
+      ],
+      impact:
+        "This project demonstrates my ability to build and support a complete software-and-hardware system used in real business operations.",
+      location: {
+        label: "Yugobooth Location",
+        address: "4HGW+XQ Angeles, Pampanga",
+        mapEmbedUrl:
+          "https://www.google.com/maps?q=4HGW%2BXQ%20Angeles%2C%20Pampanga&output=embed",
+        mapOpenUrl:
+          "https://www.google.com/maps/search/?api=1&query=4HGW%2BXQ%20Angeles%2C%20Pampanga",
+      },
+      liveDemo: "",
+      github: "",
+    },
+    {
+      title: "MyJobTracker: Job Application Tracker System",
+      category: "Full-Stack Web Application",
+      summary:
+        "A full-stack job application tracker that helps users organize applications, monitor progress, and manage statuses.",
+      description:
+        "MyJobTracker is a modern web application designed to help job seekers organize job applications in one platform. Users can track company details, roles, statuses, notes, and progress from application to final result.",
+      highlights: [
+        "Built a dashboard for organizing job applications and monitoring progress.",
+        "Added status management such as Applied, Accepted, Rejected, and Archived.",
+        "Developed search and filtering features for faster application tracking.",
+        "Created RESTful APIs using Node.js and Express.js.",
+        "Used Prisma ORM and Neon PostgreSQL for structured database management.",
+      ],
+      tech: [
+        "React",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "Prisma ORM",
+        "Neon PostgreSQL",
+        "JavaScript",
+        "REST API",
+        "Git",
+        "GitHub",
+      ],
+      impact:
+        "This project shows my ability to build a complete full-stack application with a modern frontend, backend API, and cloud database.",
+      liveDemo: "https://job-application-tracker-gray-iota.vercel.app/",
+      github: "",
+    },
+    {
+      title: "GaBayan AI: Legal Guidance Assistant",
+      category: "AI Web Application",
+      summary:
+        "An AI-powered legal guidance assistant that helps users prepare better questions before consulting a legal professional.",
+      description:
+        "GaBayan AI is an AI-powered assistant focused on helping users understand how to prepare legal questions and documents before consulting a public attorney or licensed legal professional.",
+      highlights: [
+        "Built a modern responsive chat interface with real-time AI interactions.",
+        "Integrated Google Gemini AI with a Node.js and Express.js backend.",
+        "Added legal safety guidelines and disclaimer-based response handling.",
+        "Created quick prompt actions to help users ask better questions.",
+        "Deployed the frontend on Vercel and backend service on Render.",
+      ],
+      tech: [
+        "React",
+        "Vite",
+        "Node.js",
+        "Express.js",
+        "JavaScript",
+        "CSS",
+        "REST API",
+        "Google Gemini AI",
+        "Vercel",
+        "Render",
+      ],
+      impact:
+        "This project demonstrates my ability to integrate AI into useful, user-friendly web applications with responsible guidance and safety messaging.",
+      liveDemo: "https://gabayan-ai.vercel.app/",
+      github: "",
+    },
+    {
+      title: "BBridge: Barangay Management & Public Service System",
+      category: "Government Service Platform",
+      summary:
+        "A web-based system that helps digitize barangay operations, document requests, scheduling, payments, and reports.",
+      description:
+        "BBridge is a barangay management and public service platform designed to reduce manual work and improve the way residents request documents, schedule services, and track public service transactions.",
+      highlights: [
+        "Developed modules for document requests, scheduling, public service requests, reports, and payment tracking.",
+        "Implemented role-based access control for secure multi-user access.",
+        "Integrated Tesseract OCR to automate receipt validation.",
+        "Added geolocation and mapping features using OpenStreetMap API.",
+        "Improved workflow visibility through digital records and reporting.",
+      ],
+      tech: [
+        "PHP",
+        "JavaScript",
+        "MySQL",
+        "Tailwind CSS",
+        "Tesseract OCR",
+        "OpenStreetMap API",
+      ],
+      impact:
+        "This project shows my ability to build practical systems for local government workflows and public service operations.",
+      liveDemo: "",
+      github: "",
+    },
+    {
+      title: "HydroTech: Smart IoT Water Dispenser",
+      category: "IoT + Web Dashboard",
+      summary:
+        "An IoT-based automated water dispensing system with QR authentication, dispensing logic, and dashboard monitoring.",
+      description:
+        "HydroTech is an IoT-based smart water dispenser created as a capstone project. It combines hardware control, QR-based authentication, automated dispensing, and a web dashboard for monitoring.",
+      highlights: [
+        "Led the development team and designed the system's hardware architecture.",
+        "Built hardware control logic using Arduino and ESP8266.",
+        "Implemented QR authentication and automated dispensing logic.",
+        "Integrated the hardware system with a web dashboard.",
+        "Performed safety-focused testing and system optimization.",
+      ],
+      tech: ["PHP", "JavaScript", "MySQL", "Arduino", "ESP8266"],
+      impact:
+        "This project demonstrates my foundation in IoT, hardware integration, web dashboards, and team-based development.",
+      liveDemo: "",
+      github: "",
+    },
   ];
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
 
-useEffect(() => {
-  if (isDark) {
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("portfolio-theme", "dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-    localStorage.setItem("portfolio-theme", "light");
-  }
-}, [isDark]);
-
   useEffect(() => {
-  if (isDark) {
-    document.body.classList.add("dark");
-    localStorage.setItem("portfolio-theme", "dark");
-  } else {
-    document.body.classList.remove("dark");
-    localStorage.setItem("portfolio-theme", "light");
-  }
-}, [isDark]);
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      document.body.classList.add("dark");
+      localStorage.setItem("portfolio-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.body.classList.remove("dark");
+      localStorage.setItem("portfolio-theme", "light");
+    }
+  }, [isDark]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,6 +223,7 @@ useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         setModalImage("");
+        setSelectedProject(null);
         setChatOpen(false);
       }
     };
@@ -87,8 +237,12 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = modalImage ? "hidden" : "";
-  }, [modalImage]);
+    document.body.style.overflow = modalImage || selectedProject ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [modalImage, selectedProject]);
 
   const sendMessageToAI = async (text) => {
     if (!text.trim()) return;
@@ -101,6 +255,7 @@ useEffect(() => {
 
     try {
       const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
       const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: {
@@ -152,22 +307,22 @@ useEffect(() => {
     setModalImage("");
   };
 
-  let touchStartX = 0;
+  const closeProjectModal = () => {
+    setSelectedProject(null);
+  };
 
   const handleTouchStart = (e) => {
-    touchStartX = e.touches[0].clientX;
+    touchStartXRef.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = (e) => {
     const touchEndX = e.changedTouches[0].clientX;
 
-    if (touchStartX - touchEndX > 50) {
-      // swipe left
+    if (touchStartXRef.current - touchEndX > 50) {
       setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
     }
 
-    if (touchEndX - touchStartX > 50) {
-      // swipe right
+    if (touchEndX - touchStartXRef.current > 50) {
       setCurrentSlide((prev) =>
         prev === 0 ? sliderImages.length - 1 : prev - 1
       );
@@ -213,42 +368,43 @@ useEffect(() => {
             </div>
 
             <p className="hero-location">Guagua, Pampanga, Philippines</p>
-            <h2 className="hero-role">Entry-Level Full-Stack Developer</h2>
+            <h2 className="hero-role">Software Engineer / Full-Stack Developer</h2>
 
             <p className="hero-tagline">
-              I build practical web applications, automation systems, and IoT
-              solutions that solve real-world workflow problems.
+              I build responsive web applications, backend APIs, automation
+              systems, and database-driven solutions that solve real-world
+              workflow problems.
             </p>
 
-          <div className="hero-actions">
-            <a
-              className="btn btn-primary"
-              href="/assets/files/SORIANO_RONALD_RESUME - MAIN RESUME.pdf"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaFileAlt style={{ marginRight: "8px" }} />
-              View Resume
-            </a>
+            <div className="hero-actions">
+              <a
+                className="btn btn-primary"
+                href="/assets/files/RONALD_SORIANO_RESUME.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaFileAlt style={{ marginRight: "8px" }} />
+                View Resume
+              </a>
 
-            <a
-              className="btn btn-secondary"
-              href="mailto:ronaldsoriano2727@gmail.com"
-            >
-              <FaEnvelope style={{ marginRight: "8px" }} />
-              Send Email
-            </a>
+              <a
+                className="btn btn-secondary"
+                href="mailto:ronaldsoriano2727@gmail.com"
+              >
+                <FaEnvelope style={{ marginRight: "8px" }} />
+                Send Email
+              </a>
 
-            <a
-              className="btn btn-secondary"
-              href="https://calendly.com/ronaldsoriano2727/15-minute-meeting"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaCalendarAlt style={{ marginRight: "8px" }} />
-              Schedule a Call
-            </a>
-          </div>
+              <a
+                className="btn btn-secondary"
+                href="https://calendly.com/ronaldsoriano2727/15-minute-meeting"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaCalendarAlt style={{ marginRight: "8px" }} />
+                Schedule a Call
+              </a>
+            </div>
           </div>
         </header>
 
@@ -259,182 +415,107 @@ useEffect(() => {
 
               <div className="content-text">
                 <p>
-                  I am an entry-level full-stack developer focused on building
-                  systems that solve real operational problems. I specialize in
-                  turning ideas into complete functional systems through web
-                  development, backend engineering, automation, and hardware
-                  integration.
+                  I am a full-stack and automation developer focused on building
+                  practical software solutions using JavaScript, PHP, Python,
+                  React, Node.js, Express.js, and MySQL. I enjoy turning ideas
+                  into complete systems, from responsive user interfaces and
+                  backend APIs to database-driven platforms and automated
+                  workflows.
                 </p>
 
                 <p>
-                  I have experience developing full-stack platforms, automation
-                  systems, and IoT-based applications, including
-                  payment-integrated systems, management platforms, and
-                  real-time monitoring tools.
+                  My experience includes developing web applications, automation
+                  workflows, IoT-based projects, and hardware-integrated
+                  solutions. I have worked on real-world systems such as an
+                  automated photobooth platform, a job application tracker
+                  system, a barangay management system, and a smart IoT water
+                  dispenser.
                 </p>
 
                 <p>
-                  I work directly with non-technical clients to understand their
-                  requirements, translate ideas into technical features, and
-                  improve systems based on real feedback.
+                  I work directly with clients and users to understand their
+                  needs, translate requirements into technical features, and
+                  improve systems based on actual feedback. I am comfortable
+                  working independently, learning new tools quickly, and building
+                  solutions that help streamline processes.
                 </p>
 
                 <p>
-                  I am currently open to junior developer roles, internships,
-                  freelance projects, and entry-level opportunities.
+                  I am also experienced in technical support tasks such as remote
+                  assistance, basic troubleshooting, system monitoring,
+                  documentation, and user guidance using tools like AnyDesk,
+                  TeamViewer, and Microsoft Office.
                 </p>
               </div>
             </article>
 
             <article className="card">
-              <div className="section-head">
-                <h3>Featured Projects</h3>
+              <div className="section-head project-section-head">
+                <div>
+                  <h3>Featured Projects</h3>
+                  <p className="section-subtitle">
+                    Selected work showing full-stack development, automation,
+                    AI integration, database systems, and real-world technical
+                    problem solving.
+                  </p>
+                </div>
               </div>
 
-              <div className="projects-grid">
-                <div className="project-card featured-project">
-                  <div className="project-body">
-                    <div className="project-header">
-                      <h4>Automated Photobooth System — Yugobooth</h4>
+              <div className="project-preview-grid">
+                {projects.map((project) => (
+                  <div className="project-preview-card" key={project.title}>
+                    <div>
+                      <span className="project-category">
+                        {project.category}
+                      </span>
 
-                        {false && (
-                          <button
-                            className="project-link project-link-button"
-                            type="button"
-                            onClick={() =>
-                              openImageModal("/assets/images/yugobooth.jpg")
-                            }
-                          >
-                            View Photo &gt;
-                          </button>
-                        )}
+                      <h4>{project.title}</h4>
+
+                      <p>{project.summary}</p>
                     </div>
 
-                    <p>
-                      A fully automated photobooth system integrating hardware,
-                      software, payment processing, photo capture, printing, QR
-                      downloads, and admin analytics.
-                    </p>
-
-                    <ul>
-                      <li>Integrated bill acceptor payment system</li>
-                      <li>
-                        Automated capture, filtering, printing, and QR downloads
-                      </li>
-                      <li>
-                        Built admin dashboard for analytics and session tracking
-                      </li>
-                    </ul>
-
-                    <div className="tech-list">
-                      <span>HTML</span>
-                      <span>CSS</span>
-                      <span>JavaScript</span>
-                      <span>PHP</span>
-                      <span>MySQL</span>
-                      <span>Python</span>
-                      <span>Arduino</span>
-                      <span>FFmpeg</span>
+                    <div className="tech-list compact">
+                      {project.tech.slice(0, 5).map((tech) => (
+                        <span key={tech}>{tech}</span>
+                      ))}
                     </div>
 
                     <div className="project-actions">
-                      <a
-                        className="project-link"
-                        href="https://github.com/Nald27/yugobooth-photobooth-system"
-                        target="_blank"
-                        rel="noreferrer"
+                      <button
+                        className="project-action-btn primary-action"
+                        type="button"
+                        onClick={() => setSelectedProject(project)}
                       >
-                        View Project &gt;
-                      </a>
+                        <span>View Details</span>
+                        <span className="action-arrow">→</span>
+                      </button>
+
+                      {project.liveDemo && (
+                        <a
+                          className="project-action-btn secondary-action"
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span>Live Demo</span>
+                          <span className="action-arrow">↗</span>
+                        </a>
+                      )}
+
+                      {project.github && (
+                        <a
+                          className="project-action-btn secondary-action"
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <span>GitHub</span>
+                          <span className="action-arrow">↗</span>
+                        </a>
+                      )}
                     </div>
                   </div>
-                </div>
-
-                <div className="project-card">
-                  <div className="project-body">
-                    <h4>Barangay Management Information System</h4>
-
-                    <p>
-                      A full-stack system that digitizes barangay operations,
-                      improving records, document requests, services, reports,
-                      and payment tracking.
-                    </p>
-
-                    <ul>
-                      <li>
-                        Built document request, scheduling, reporting, and
-                        payment modules
-                      </li>
-                      <li>Implemented role-based access control</li>
-                      <li>
-                        Integrated OCR for receipt validation and analytics
-                      </li>
-                    </ul>
-
-                    <div className="tech-list">
-                      <span>PHP</span>
-                      <span>MySQL</span>
-                      <span>JavaScript</span>
-                      <span>Tailwind CSS</span>
-                      <span>Tesseract OCR</span>
-                      <span>GeoJSON</span>
-                    </div>
-
-                    <div className="project-actions">
-                      <a
-                        className="project-link"
-                        href="https://github.com/Nald27/barangaybridge"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View Project &gt;
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="project-card">
-                  <div className="project-body">
-                    <h4>HydroTech Smart IoT Water Dispenser</h4>
-
-                    <p>
-                      An IoT-based water dispensing system with QR
-                      authentication, automated dispensing, and real-time web
-                      monitoring.
-                    </p>
-
-                    <ul>
-                      <li>
-                        Led development team and designed hardware architecture
-                      </li>
-                      <li>
-                        Built control systems for sensors, dispensing, and safety
-                      </li>
-                      <li>
-                        Integrated QR authentication and web monitoring
-                      </li>
-                    </ul>
-
-                    <div className="tech-list">
-                      <span>Arduino</span>
-                      <span>ESP8266</span>
-                      <span>PHP</span>
-                      <span>MySQL</span>
-                      <span>JavaScript</span>
-                    </div>
-
-                    <div className="project-actions">
-                      <a
-                        className="project-link"
-                        href="https://github.com/Nald27/hydrotech-smart-iot-water-dispenser"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View Project &gt;
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </article>
 
@@ -442,64 +523,96 @@ useEffect(() => {
               <h3>Technical Skills</h3>
 
               <div className="skills-group">
-                <h4>Frontend</h4>
+                <h4>Programming Languages</h4>
+                <div className="chips">
+                  <span>PHP</span>
+                  <span>JavaScript (ES6+)</span>
+                  <span>Python</span>
+                  <span>C++</span>
+                  <span>SQL</span>
+                </div>
+              </div>
+
+              <div className="skills-group">
+                <h4>Frontend Development</h4>
                 <div className="chips">
                   <span>HTML5</span>
                   <span>CSS3</span>
-                  <span>JavaScript</span>
                   <span>React</span>
+                  <span>Vite</span>
                   <span>Tailwind CSS</span>
                   <span>Bootstrap</span>
-                  <span>WordPress</span>
+                  <span>Responsive Design</span>
+                  <span>UI/UX Implementation</span>
                 </div>
               </div>
 
               <div className="skills-group">
-                <h4>Backend & Database</h4>
+                <h4>Backend Development & APIs</h4>
                 <div className="chips">
-                  <span>PHP</span>
-                  <span>Python</span>
-                  <span>C++</span>
-                  <span>MySQL</span>
+                  <span>Node.js</span>
+                  <span>Express.js</span>
                   <span>REST API Development</span>
+                  <span>JSON</span>
+                  <span>Webhooks</span>
+                  <span>Authentication Logic</span>
+                  <span>Server-Side Development</span>
                 </div>
               </div>
 
               <div className="skills-group">
-                <h4>IoT & Hardware</h4>
+                <h4>Databases & ORM</h4>
                 <div className="chips">
-                  <span>Arduino</span>
-                  <span>ESP8266</span>
-                  <span>IoT Sensors</span>
-                  <span>QR Systems</span>
-                  <span>Hardware Integration</span>
+                  <span>MySQL</span>
+                  <span>PostgreSQL</span>
+                  <span>Neon PostgreSQL</span>
+                  <span>MongoDB</span>
+                  <span>Prisma ORM</span>
+                  <span>Database Design</span>
+                  <span>CRUD Operations</span>
                 </div>
               </div>
 
               <div className="skills-group">
-                <h4>Tools & Technologies</h4>
+                <h4>Tools, Platforms & Deployment</h4>
                 <div className="chips">
                   <span>Git</span>
                   <span>GitHub</span>
                   <span>VS Code</span>
-                  <span>Arduino IDE</span>
-                  <span>FFmpeg</span>
-                  <span>Microsoft 365</span>
-                  <span>Google Docs</span>
-                  <span>Trello</span>
-                  <span>Jira</span>
                   <span>Postman</span>
+                  <span>Vercel</span>
+                  <span>Render</span>
                   <span>Ngrok</span>
                   <span>Cloudflare Tunnel</span>
+                  <span>Hostinger</span>
+                  <span>WordPress / Elementor</span>
                 </div>
               </div>
 
               <div className="skills-group">
-                <h4>AI Tools</h4>
+                <h4>Technical Support & Productivity Tools</h4>
                 <div className="chips">
-                  <span>ChatGPT</span>
-                  <span>Claude</span>
-                  <span>Gemini</span>
+                  <span>Microsoft Office</span>
+                  <span>Google Drive</span>
+                  <span>AnyDesk</span>
+                  <span>TeamViewer</span>
+                  <span>Trello</span>
+                  <span>Jira</span>
+                  <span>Zoho</span>
+                  <span>Documentation</span>
+                  <span>Remote Support</span>
+                </div>
+              </div>
+
+              <div className="skills-group">
+                <h4>Hardware, IoT & Other Tools</h4>
+                <div className="chips">
+                  <span>Arduino</span>
+                  <span>ESP8266</span>
+                  <span>Hardware Integration</span>
+                  <span>FFmpeg</span>
+                  <span>Tesseract OCR</span>
+                  <span>PayMongo</span>
                 </div>
               </div>
             </article>
@@ -513,17 +626,35 @@ useEffect(() => {
                 <div className="timeline-item active">
                   <div className="timeline-dot"></div>
                   <div>
-                    <h4>Freelance Full-Stack Developer</h4>
-                    <p>Automated Photobooth System — Yugobooth</p>
+                    <h4>Project-Based Full-Stack Developer</h4>
+                    <p>Yugobooth: Automated Photobooth System</p>
                   </div>
-                  <span>2025</span>
+                  <span>2025–Present</span>
                 </div>
 
                 <div className="timeline-item">
                   <div className="timeline-dot"></div>
                   <div>
-                    <h4>Freelance Full-Stack Developer</h4>
-                    <p>Barangay Management Information System</p>
+                    <h4>Full-Stack Developer</h4>
+                    <p>MyJobTracker: Job Application Tracker System</p>
+                  </div>
+                  <span>2026</span>
+                </div>
+
+                <div className="timeline-item">
+                  <div className="timeline-dot"></div>
+                  <div>
+                    <h4>Full-Stack Developer</h4>
+                    <p>GaBayan AI: Legal Guidance Assistant</p>
+                  </div>
+                  <span>2026</span>
+                </div>
+
+                <div className="timeline-item">
+                  <div className="timeline-dot"></div>
+                  <div>
+                    <h4>Project-Based Full-Stack Developer</h4>
+                    <p>BBridge: Barangay Management & Public Service System</p>
                   </div>
                   <span>2025</span>
                 </div>
@@ -588,17 +719,32 @@ useEffect(() => {
               <h3>Social Links</h3>
 
               <div className="social-links-list">
-                <a href="https://github.com/Nald27" target="_blank" className="social-link-item">
+                <a
+                  href="https://github.com/Nald27"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link-item"
+                >
                   <FaGithub size={20} />
                   <span className="social-link-text">GitHub</span>
                 </a>
 
-                <a href="https://www.linkedin.com/in/ronald-soriano-159b02347" target="_blank" className="social-link-item">
+                <a
+                  href="https://www.linkedin.com/in/ronald-soriano-159b02347"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link-item"
+                >
                   <FaLinkedin size={20} />
                   <span className="social-link-text">LinkedIn</span>
                 </a>
 
-                <a href="https://www.instagram.com/nald.dev/" target="_blank" className="social-link-item">
+                <a
+                  href="https://www.instagram.com/nald.dev/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="social-link-item"
+                >
                   <FaInstagram size={20} />
                   <span className="social-link-text">Instagram</span>
                 </a>
@@ -617,7 +763,7 @@ useEffect(() => {
                 </a>
 
                 <a href="tel:+639623863712" className="contact-item">
-                  <span>0962-386-3712</span>
+                  <span>+63 962-386-3712</span>
                 </a>
               </div>
 
@@ -635,46 +781,44 @@ useEffect(() => {
                 </span>
               </div>
 
-                <div className="slider" onTouchStart={handleTouchStart} 
-                                        onTouchEnd={handleTouchEnd}
+              <div
+                className="slider"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+              >
+                <button
+                  className="slider-btn left"
+                  type="button"
+                  onClick={() =>
+                    setCurrentSlide((prev) =>
+                      prev === 0 ? sliderImages.length - 1 : prev - 1
+                    )
+                  }
                 >
+                  ‹
+                </button>
 
-                  {/* LEFT ARROW */}
-                  <button
-                    className="slider-btn left"
-                    onClick={() =>
-                      setCurrentSlide((prev) =>
-                        prev === 0 ? sliderImages.length - 1 : prev - 1
-                      )
-                    }
-                  >
-                    ‹
-                  </button>
+                {sliderImages.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    className={`slider-image ${
+                      index === currentSlide ? "active" : ""
+                    }`}
+                    alt={`Portfolio gallery ${index + 1}`}
+                  />
+                ))}
 
-                  {/* IMAGES */}
-                  {sliderImages.map((img, index) => (
-                    <img
-                      key={index}
-                      src={img}
-                      className={`slider-image ${
-                        index === currentSlide ? "active" : ""
-                      }`}
-                      alt={`Portfolio gallery ${index + 1}`}
-                    />
-                  ))}
-
-                  {/* RIGHT ARROW */}
-                  <button
-                    className="slider-btn right"
-                    onClick={() =>
-                      setCurrentSlide((prev) =>
-                        (prev + 1) % sliderImages.length
-                      )
-                    }
-                  >
-                    ›
-                  </button>
-                </div>
+                <button
+                  className="slider-btn right"
+                  type="button"
+                  onClick={() =>
+                    setCurrentSlide((prev) => (prev + 1) % sliderImages.length)
+                  }
+                >
+                  ›
+                </button>
+              </div>
             </article>
           </aside>
         </main>
@@ -754,23 +898,142 @@ useEffect(() => {
               <button type="submit" className="send-btn">
                 <IoSend size={18} />
               </button>
-              
             </form>
           </div>
         )}
 
-      <button
-        className="chatbot-toggle"
-        onClick={() => setChatOpen((prev) => !prev)}
-      >
-        <span className={!chatOpen ? "swing-icon" : ""}>
-          <BsChatDots size={20} />
-        </span>
+        <button
+          className="chatbot-toggle"
+          type="button"
+          onClick={() => setChatOpen((prev) => !prev)}
+        >
+          <span className={!chatOpen ? "swing-icon" : ""}>
+            <BsChatDots size={20} />
+          </span>
 
-        <span className="chat-text">Ask Ronald AI</span>
-      </button>
-
+          <span className="chat-text">Ask Ronald AI</span>
+        </button>
       </div>
+
+      {selectedProject && (
+        <div
+          className="project-modal active"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedProject.title} project details`}
+          onClick={(event) => {
+            if (event.target.classList.contains("project-modal")) {
+              closeProjectModal();
+            }
+          }}
+        >
+          <div className="project-modal-content">
+            <button
+              className="project-modal-close"
+              type="button"
+              aria-label="Close project details"
+              onClick={closeProjectModal}
+            >
+              ✕
+            </button>
+
+            <span className="project-category">
+              {selectedProject.category}
+            </span>
+
+            <h3>{selectedProject.title}</h3>
+
+            <p className="project-modal-summary">
+              {selectedProject.description}
+            </p>
+
+            <div className="project-impact-box">
+              <strong>Why this project matters</strong>
+              <p>{selectedProject.impact}</p>
+            </div>
+
+            {selectedProject.location && (
+              <div className="project-location-card">
+                <div className="project-location-header">
+                  <div>
+                    <span className="project-location-label">
+                      {selectedProject.location.label}
+                    </span>
+                    <h4>{selectedProject.location.address}</h4>
+                  </div>
+
+                  <a
+                    className="project-map-link"
+                    href={selectedProject.location.mapOpenUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open Map ↗
+                  </a>
+                </div>
+
+                <div className="project-map-frame">
+                  <iframe
+                    title={`${selectedProject.title} map location`}
+                    src={selectedProject.location.mapEmbedUrl}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              </div>
+            )}
+
+            <h4>Key Highlights</h4>
+
+            <ul className="project-modal-list">
+              {selectedProject.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+
+            <h4>Technologies Used</h4>
+
+            <div className="tech-list">
+              {selectedProject.tech.map((tech) => (
+                <span key={tech}>{tech}</span>
+              ))}
+            </div>
+
+            <div className="project-actions modal-actions">
+              {selectedProject.liveDemo && (
+                <a
+                  className="btn btn-primary"
+                  href={selectedProject.liveDemo}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open Live Demo
+                </a>
+              )}
+
+              {selectedProject.github && (
+                <a
+                  className="btn btn-secondary"
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View GitHub
+                </a>
+              )}
+
+              <button
+                className="btn btn-secondary"
+                type="button"
+                onClick={closeProjectModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {modalImage && (
         <div
