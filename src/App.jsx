@@ -195,6 +195,8 @@ export default function App() {
     },
   ];
 
+  const featuredProjects = projects.slice(0, 4);
+
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages]);
@@ -449,75 +451,67 @@ export default function App() {
               </div>
             </article>
 
-            <article className="card">
-              <div className="section-head project-section-head">
-                <div>
-                  <h3>Featured Projects</h3>
-                  <p className="section-subtitle">
-                    Selected work showing full-stack development, automation,
-                    AI integration, database systems, and real-world technical
-                    problem solving.
-                  </p>
-                </div>
-              </div>
+<article className="card">
+  <div className="section-head project-section-head">
+    <div>
+      <h3>Featured Projects</h3>
+      <p className="section-subtitle">
+        Selected work showing full-stack development, automation,
+        AI integration, database systems, and real-world technical
+        problem solving.
+      </p>
+    </div>
+  </div>
 
-              <div className="project-preview-grid">
-                {projects.map((project) => (
-                  <div className="project-preview-card" key={project.title}>
-                    <div>
-                      <span className="project-category">
-                        {project.category}
-                      </span>
+  <div className="project-preview-grid">
+    {featuredProjects.map((project) => (
+      <div className="project-preview-card" key={project.title}>
+        <div>
+          <span className="project-category">{project.category}</span>
 
-                      <h4>{project.title}</h4>
+          <h4>{project.title}</h4>
 
-                      <p>{project.summary}</p>
-                    </div>
+          <p>{project.summary}</p>
+        </div>
 
-                    <div className="tech-list compact">
-                      {project.tech.slice(0, 5).map((tech) => (
-                        <span key={tech}>{tech}</span>
-                      ))}
-                    </div>
+        <div className="tech-list compact">
+          {project.tech.slice(0, 5).map((tech) => (
+            <span key={tech}>{tech}</span>
+          ))}
+        </div>
 
-                    <div className="project-actions">
-                      <button
-                        className="project-action-btn primary-action"
-                        type="button"
-                        onClick={() => setSelectedProject(project)}
-                      >
-                        <span>View Details</span>
-                        <span className="action-arrow">→</span>
-                      </button>
+        <div className="project-actions">
+          <button
+            className="project-action-btn primary-action"
+            type="button"
+            onClick={() => setSelectedProject(project)}
+          >
+            <span>View Details</span>
+            <span className="action-arrow">→</span>
+          </button>
 
-                      {project.liveDemo && (
-                        <a
-                          className="project-action-btn secondary-action"
-                          href={project.liveDemo}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <span>Live Demo</span>
-                          <span className="action-arrow">↗</span>
-                        </a>
-                      )}
+          {project.liveDemo && (
+            <a
+              className="project-action-btn secondary-action"
+              href={project.liveDemo}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Live Demo</span>
+              <span className="action-arrow">↗</span>
+            </a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
 
-                      {project.github && (
-                        <a
-                          className="project-action-btn secondary-action"
-                          href={project.github}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <span>GitHub</span>
-                          <span className="action-arrow">↗</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
+  <div className="see-more-projects">
+    <a href="/projects" className="see-more-link">
+      See More Projects <span>→</span>
+    </a>
+  </div>
+</article>
 
             <article className="card">
               <h3>Technical Skills</h3>
@@ -705,14 +699,24 @@ export default function App() {
             <article className="card">
               <h3>Certification</h3>
 
-              <div className="mini-box certification-box">
+              <button
+                className="mini-box certification-box certification-button"
+                type="button"
+                onClick={() =>
+                  openImageModal(
+                    "/assets/images/certificates/Certificate%20of%20Eligibility%20-%20Civil%20Service.jpg"
+                  )
+                }
+                aria-label="View Civil Service Certificate"
+              >
                 <FaAward className="cert-icon" />
 
                 <div className="cert-content">
                   <strong>Civil Service Exam Passer</strong>
                   <span>Professional Level — August 2025</span>
+                  <small>Click to view certificate</small>
                 </div>
-              </div>
+              </button>
             </article>
 
             <article className="card">
