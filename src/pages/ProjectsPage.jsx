@@ -93,6 +93,36 @@ export default function ProjectsPage() {
       github: "",
     },
     {
+      title: "Shopify Dashboard UI Replica",
+      category: "Frontend UI Recreation / Practice Project",
+      year: "2026",
+      summary:
+        "A frontend practice project where I recreated a Shopify-style analytics dashboard to improve my skills in UI design replication, layout accuracy, component styling, and interactive dashboard development.",
+      description:
+        "The Shopify Dashboard UI Replica was created as a personal frontend practice project to improve my ability to recreate real-world dashboard interfaces. The project focuses on practicing frontend development fundamentals such as spacing, layout structure, typography, visual hierarchy, responsive design, and component-based UI development. It includes dashboard elements such as sidebar navigation, metric cards, promotional sections, interactive charts, date controls, and dynamic metric updates. This project helped me strengthen my React and Tailwind CSS skills while practicing how to build polished and modern dashboard interfaces.",
+      highlights: [
+        "Recreated a Shopify-style analytics dashboard UI as a frontend practice project.",
+        "Focused on improving layout accuracy, spacing consistency, typography, and visual hierarchy.",
+        "Built reusable dashboard components using React, Vite, and Tailwind CSS.",
+        "Implemented sidebar navigation, metric cards, promotional cards, and dashboard controls.",
+        "Added interactive metric switching for sessions, sales, orders, and conversion rate.",
+        "Created a functional date range picker with preset filters and custom date selection.",
+        "Practiced building a modern, responsive, and component-based dashboard interface.",
+      ],
+      tech: [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "JavaScript",
+        "Framer Motion",
+        "Lucide React",
+        "React Datepicker",
+        "Recharts"
+      ],
+      liveDemo: "https://shopify-dashboard-replica.netlify.app/",
+      github: "https://github.com/Nald27/shopify-dashboard-replica",
+    },
+    {
       title: "BBridge: Barangay Management & Public Service System",
       category: "Government Service Platform",
       year: "2025",
@@ -135,6 +165,46 @@ export default function ProjectsPage() {
       tech: ["PHP", "JavaScript", "MySQL", "Arduino", "ESP8266"],
       liveDemo: "",
       github: "",
+    },
+    {
+      title: "POS: Inventory Management System",
+      category: "Web-Based Business Management System",
+      year: "2023",
+      summary:
+        "A web-based inventory management system developed as part of a collaborative Point-of-Sale (POS) ecosystem project involving multiple business modules.",
+      description:
+        "The Inventory Management System was developed as a college project within a team of five developers, each responsible for different POS modules such as Inventory, Sales, Finance, and Purchase Orders. My role focused on building the Inventory module, which managed stock tracking, inventory updates, and item monitoring. The project also included efforts to integrate the individual modules into a unified POS platform.",
+      highlights: [
+        "Developed the Inventory Management module using PHP, JavaScript, and MySQL.",
+        "Designed inventory tracking workflows and database structures for stock management.",
+        "Collaborated with a team of five developers working on interconnected POS modules.",
+        "Participated in integration efforts between the Inventory and Purchase Order (PO) systems.",
+        "Applied software development and database management principles in a team-based project environment.",
+      ],
+      tech: ["PHP", "JavaScript", "MySQL"],
+      liveDemo: "",
+      github: "https://github.com/Nald27/inventory-management-system",
+    },
+    {
+      title: "Apartment Management System",
+      category: "Web-Based Property Management System",
+      year: "2023",
+      summary:
+        "A web-based apartment management system developed as a 3rd-year college project to practice building database-driven web applications for property and tenant management.",
+      description:
+        "The Apartment Management System was developed as a school project during my 3rd year in college. The project was designed to help manage basic apartment rental operations such as tenant records, apartment units, payments, transactions, and account activity. It includes admin and tenant interfaces, allowing admins to monitor unit availability, view tenant information, manage payments, and review transaction history, while tenants can register, log in, view unit details, and update their profile. This project helped me strengthen my foundation in PHP, MySQL, CRUD operations, authentication, role-based workflows, and database-driven web development.",
+      highlights: [
+        "Developed a school-based apartment management system using PHP, MySQL, HTML, CSS, and JavaScript.",
+        "Built admin features for managing tenants, apartment units, payment records, and transaction history.",
+        "Created tenant-side features for registration, login, profile updates, and viewing unit-related information.",
+        "Implemented basic authentication and role-based navigation for admin and tenant users.",
+        "Designed database-driven workflows for unit availability, tenant records, and payment tracking.",
+        "Added an audit trail feature to track system activities such as logins, profile updates, and rental actions.",
+        "Applied foundational web development, database management, and CRUD operation concepts in a real-world-style school project.",
+      ],
+      tech: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
+      liveDemo: "",
+      github: "https://github.com/Nald27/apartment-management-system",
     },
   ];
 
