@@ -1,8 +1,29 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import "../App.css";
 
 export default function ProjectsPage() {
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === "Escape") {
+        setSelectedVideo(null);
+      }
+    };
+
+    if (selectedVideo) {
+      document.addEventListener("keydown", handleEscapeKey);
+      document.body.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKey);
+      document.body.style.overflow = "";
+    };
+  }, [selectedVideo]);
+
   const projects = [
     {
       title: "Yugobooth: Automated Photobooth System",
@@ -37,6 +58,37 @@ export default function ProjectsPage() {
       },
       liveDemo: "",
       github: "",
+    },
+    {
+      title: "WeatherWise AI: AI Weather Assistant",
+      category: "AI-Powered Web Application",
+      year: "2026",
+      summary:
+        "A vintage-style AI weather assistant that provides real-time forecasts and practical weather advice using AI.",
+      description:
+        "WeatherWise AI is an AI-powered weather assistant that allows users to search for any city, view current weather conditions, hourly forecasts, and a 7-day outlook. It integrates real-time weather data from Open-Meteo and uses Gemini AI to generate simple, practical recommendations for rain, heat, travel, and outdoor planning.",
+      highlights: [
+        "Built a responsive weather dashboard with a vintage-inspired user interface.",
+        "Integrated Open-Meteo API to fetch real-time weather data, hourly forecasts, and 7-day outlooks.",
+        "Added AI-powered weather advice using Gemini AI for user questions such as whether to bring an umbrella or plan outdoor activities.",
+        "Created a Node.js and Express.js backend to securely handle AI API requests.",
+        "Implemented city search, forecast display, rain probability, temperature, humidity, wind, and weather condition details.",
+        "Designed the application with a minimalist vintage aesthetic and fully responsive layouts for mobile, tablet, and desktop.",
+      ],
+      tech: [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Node.js",
+        "Express.js",
+        "Open-Meteo API",
+        "Gemini AI",
+        "REST API",
+        "Render",
+        "Vercel",
+      ],
+      liveDemo: "https://your-vercel-link.vercel.app/",
+      github: "https://github.com/Nald27/weatherwise.ai",
     },
     {
       title: "MyJobTracker: Job Application Tracker System",
@@ -117,7 +169,7 @@ export default function ProjectsPage() {
         "Framer Motion",
         "Lucide React",
         "React Datepicker",
-        "Recharts"
+        "Recharts",
       ],
       liveDemo: "https://shopify-dashboard-replica.netlify.app/",
       github: "https://github.com/Nald27/shopify-dashboard-replica",
@@ -163,6 +215,39 @@ export default function ProjectsPage() {
         "Performed safety-focused testing and system optimization.",
       ],
       tech: ["PHP", "JavaScript", "MySQL", "Arduino", "ESP8266"],
+      liveDemo: "",
+      github: "",
+    },
+    {
+      title: "Smart Parking Management System",
+      category: "School Project / Arduino-Based Hardware Prototype",
+      year: "2024",
+      summary:
+        "A school-based Arduino smart parking prototype that detects available parking slots, controls gate access, and displays real-time slot availability.",
+      description:
+        "Smart Parking Management System is an academic hardware prototype developed as a school project to demonstrate automated parking slot monitoring and gate control. The system uses infrared object sensors to detect whether each parking slot is occupied, an ultrasonic sensor to detect incoming vehicles at the entrance, a servo motor to control the gate, and a 16x2 LCD to display the number of available slots. If all parking slots are full and a new vehicle is detected at the gate, the buzzer alarm activates and the gate remains closed.",
+      highlights: [
+        "Developed a school-based Arduino smart parking prototype with automated slot detection and gate control.",
+        "Used infrared object sensors to detect whether parking slots are occupied or available.",
+        "Integrated an ultrasonic sensor to detect incoming vehicles at the entrance gate.",
+        "Programmed the servo motor to open the gate only when there is an available parking slot.",
+        "Prevented gate access when all parking slots are full.",
+        "Displayed the real-time number of available parking slots using a 16x2 LCD.",
+        "Added a piezo buzzer or active alarm module to alert when the parking area is full and a new vehicle is detected.",
+        "Designed and assembled a physical school project prototype with sensors, toy cars, barriers, and a working gate mechanism.",
+      ],
+      tech: [
+        "Arduino",
+        "Infrared Object Sensor",
+        "Ultrasonic Sensor",
+        "16x2 LCD",
+        "Servo Motor",
+        "Piezo Buzzer",
+        "Active Alarm Buzzer Module",
+        "Embedded Systems",
+        "Hardware Prototyping",
+      ],
+      video: "/assets/videos/parking-management-demo.mp4",
       liveDemo: "",
       github: "",
     },
@@ -279,6 +364,16 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="all-project-actions">
+                  {project.video && (
+                    <button
+                      type="button"
+                      className="project-video-button"
+                      onClick={() => setSelectedVideo(project.video)}
+                    >
+                      Watch Demo Video ▶
+                    </button>
+                  )}
+
                   {project.liveDemo && (
                     <a
                       href={project.liveDemo}
@@ -300,6 +395,33 @@ export default function ProjectsPage() {
           ))}
         </main>
       </div>
+
+      {selectedVideo && (
+        <div
+          className="video-modal-overlay"
+          onClick={() => setSelectedVideo(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project demo video"
+        >
+          <div className="video-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="video-modal-close"
+              onClick={() => setSelectedVideo(null)}
+              aria-label="Close video"
+            >
+              ×
+            </button>
+
+            <video controls autoPlay playsInline>
+              <source src={selectedVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
