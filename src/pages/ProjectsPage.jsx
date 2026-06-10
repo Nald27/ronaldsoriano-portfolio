@@ -87,7 +87,7 @@ export default function ProjectsPage() {
         "Render",
         "Vercel",
       ],
-      liveDemo: "https://your-vercel-link.vercel.app/",
+      liveDemo: "https://weatherwise-ai.vercel.app/",
       github: "https://github.com/Nald27/weatherwise.ai",
     },
     {
