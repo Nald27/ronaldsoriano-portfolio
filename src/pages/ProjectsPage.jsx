@@ -60,6 +60,73 @@ export default function ProjectsPage() {
       github: "",
     },
     {
+      title: "Yugobooth Bookkeeping System",
+      category: "Full-Stack Web Application",
+      year: "2026 – Present",
+      summary:
+        "A secure online bookkeeping web app for tracking daily sales, expenses, worker salaries, partner payouts, reports, and audit history.",
+      description:
+        "Yugobooth Bookkeeping System is a real-world business management web application built to support daily operations for the Yugobooth photobooth business. It centralizes daily records, automatic expense calculations, worker payment tracking, partner payout periods, reporting, soft deletes, audit logs, and configurable future-only price settings into one responsive online dashboard.",
+      highlights: [
+        "Built a responsive dashboard for viewing daily sales, expenses, net profit/loss, GCash, cash, worker salary balances, and partner payout balances.",
+        "Implemented daily record creation, editing, viewing, soft delete, and restore workflows with historical price snapshots.",
+        "Added configurable future default prices for rent, strips cost, electricity, Ngrok, WiFi, and worker hourly rates without changing old records.",
+        "Created worker salary payment tracking with unpaid, partial, and paid statuses.",
+        "Designed period-based partner payout calculations for weekly, monthly, and custom date ranges so losses and closed days are covered before profit distribution.",
+        "Added reports, CSV exports, pagination, audit logs, and mobile-responsive layouts for phone, tablet, iPad, and desktop use.",
+        "Secured the system using Supabase authentication, PostgreSQL database rules, and protected dashboard routes.",
+      ],
+      tech: [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Supabase Auth",
+        "Supabase PostgreSQL",
+        "Row Level Security",
+        "React Hook Form",
+        "Zod",
+        "Vercel",
+      ],
+      location: {
+        address: "4HGW+XQ Angeles, Pampanga",
+        mapOpenUrl:
+          "https://www.google.com/maps/search/?api=1&query=4HGW%2BXQ%20Angeles%2C%20Pampanga",
+      },
+      liveDemo: "https://yugobooth-bookkeeping.vercel.app/",
+      github: "",
+    },
+    {
+      title: "Interactive Wedding Invitation Website",
+      category: "Frontend Web Development + Responsive UI Design",
+      year: "2026",
+      summary:
+        "A fully responsive digital wedding invitation website with an elegant visual design, interactive gallery, wedding timeline, venue details, RSVP flow, and mobile-first guest experience.",
+      description:
+        "This wedding invitation website is a live deployed project designed to provide guests with a beautiful and accessible digital invitation experience. It includes a landing page, interactive invitation sections, countdown timer, wedding details, venue information, photo gallery modal, attire guide, gift guide, unplugged ceremony reminder, hashtag section, and RSVP experience. The project focuses on responsive design, polished UI/UX, smooth section-based navigation, and a romantic visual theme tailored for a real wedding event.",
+      highlights: [
+        "Designed and developed a responsive wedding invitation website optimized for desktop and mobile devices.",
+        "Built an elegant landing page and multi-section invitation flow with smooth visual hierarchy.",
+        "Implemented an interactive photo gallery with modal preview, story captions, and outside-click closing behavior.",
+        "Created wedding details sections including ceremony time, reception time, guest arrival reminder, venues, attire guide, and RSVP section.",
+        "Added decorative visual assets, custom responsive CSS, and mobile-specific layout adjustments for a polished guest experience.",
+        "Deployed the project live on Vercel for public access and easy sharing with guests.",
+      ],
+      tech: [
+        "React",
+        "Vite",
+        "JavaScript",
+        "CSS3",
+        "React Router",
+        "Responsive Design",
+        "Vercel",
+        "Google Apps Script",
+        "Google Sheets",
+      ],
+      liveDemo: "https://wedding-invitation-wheat-three.vercel.app/",
+      github: "",
+    },
+    {
       title: "WeatherWise AI: AI Weather Assistant",
       category: "AI-Powered Web Application",
       year: "2026",
