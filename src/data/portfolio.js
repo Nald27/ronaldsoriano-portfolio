@@ -26,13 +26,13 @@ export const galleryImages = [
 ];
 
 export const aboutParagraphs = [
-  "I am a full-stack and automation developer focused on building practical software solutions using JavaScript, PHP, Python, React, Node.js, Express.js, and MySQL. I enjoy turning ideas into complete systems, from responsive user interfaces and backend APIs to database-driven platforms and automated workflows.",
+  "Hi, I’m Ronald — a systems developer and technology service provider focused on building practical software solutions for real business operations.",
 
-  "My experience includes developing web applications, automation workflows, IoT-based projects, and hardware-integrated solutions. I have worked on real-world systems such as an automated photobooth platform, a job application tracker system, a barangay management system, and a smart IoT water dispenser.",
+  "I create systems that help businesses work more efficiently, from software development and hardware integration to process automation, technical documentation, staff training, and ongoing support. My work focuses on making technology easier to use, especially for non-technical users.",
 
-  "I work directly with clients and users to understand their needs, translate requirements into technical features, and improve systems based on actual feedback. I am comfortable working independently, learning new tools quickly, and building solutions that help streamline processes.",
+  "I enjoy building tools that solve real problems, improve daily workflows, reduce manual tasks, and help small businesses operate more smoothly.",
 
-  "I am also experienced in technical support tasks such as remote assistance, basic troubleshooting, system monitoring, documentation, and user guidance using tools like AnyDesk, TeamViewer, and Microsoft Office.",
+  "I’m interested in software development, business systems, automation, and technology solutions that are simple, reliable, and useful in everyday operations.",
 ];
 
 export const skillGroups = [

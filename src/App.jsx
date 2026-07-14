@@ -464,9 +464,9 @@ function HeroSection() {
         </h2>
 
         <p className="hero-tagline">
-          I build responsive web applications, backend APIs, automation
-          systems, and database-driven solutions that solve real-world
-          workflow problems.
+            I create simple and reliable technology solutions that help
+            businesses organize their work, automate tasks, and improve
+            daily operations.
         </p>
 
         <div className="hero-actions">
