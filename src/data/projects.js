@@ -77,7 +77,7 @@ export const projects = [
       "Zod",
       "Vercel",
     ],
-    liveDemo: "https://yugobooth-bookkeeping.vercel.app/",
+    liveDemo: "",
     github: "",
     featuredOrder: 2,
     impact:
